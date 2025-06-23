@@ -7,7 +7,6 @@ This was developed as part of Rebxds “core in-house libraries” and will be c
 
 ```
 go get github.com/Reboxed/HumanReadable
-
 ```
 
 
