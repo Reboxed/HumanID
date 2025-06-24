@@ -44,6 +44,8 @@ func main() {
 
 ### Scrambled (Unpredictable) IDs
 
+For scrambled we do NOT recommend to fully rely on decoding for IDs as sometimes it may still cause duplicate Human IDs which sequential does not, it's in that case safer to do a sequential and generating a random number based on MaxCombinations on your server and putting that into the Encoder to put in a database or something as that's safer and more reliable.
+
 ```go
 import (
     "fmt"
