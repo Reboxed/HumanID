@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	const iterations = 1_000_000_000
+	const iterations = 50_000_000
 	const maxLength = 100
 
 	generator, err := humanreadable.Load()
@@ -20,7 +20,7 @@ func main() {
 	duplicates := make(map[string][]int)      // Map to store duplicate IDs with all their indexes
 
 	for i := 0; i < iterations; i++ {
-		id, err := generator.Generate(2, maxLength)
+		id, err := generator.Encode(uint64(i), 2, true)
 		if err != nil {
 			log.Fatalf("Generation failed at iteration %d: %v", i, err)
 		}
@@ -37,7 +37,7 @@ func main() {
 
 		// Optional: periodically log progress
 		if i%10_000_000 == 0 {
-			fmt.Printf("Checked %d IDs...\n", i)
+			fmt.Printf("Checked %d IDs... Found %d duplicates so far. Example: \"%s\"\n", i, len(duplicates), id)
 		}
 	}
 
