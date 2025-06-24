@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	humanreadable "github.com/Reboxed/HumanReadable"
+	"github.com/Reboxed/HumanID"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 func main() {
 	start := time.Now()
 
-	generator, err := humanreadable.Load(100)
+	generator, err := HumanID.Load(100, [4]uint32{0x12345678, 0x9abcdef0, 0x0fedcba9, 0x87654321})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,14 +27,16 @@ func main() {
 	duplicates := make(map[string][]int)
 
 	for i := 0; i < iterations; i++ {
-		id, err := generator.Encode(uint64(i), 2)
-		dec, _ := generator.Decode(id)
+		id, err := generator.EncodeScrambled(uint64(i), 2)
+		dec, errDec := generator.DecodeFromScrambled(id)
 
 		if err != nil {
 			fmt.Printf("Generation failed at iteration %d: %v\n", i, err)
 		}
 		if dec != uint64(i) {
-			fmt.Printf("Decoding invalid at iteration %d with `%s`: found %d\n", i, id, dec)
+			fmt.Printf("Decoding invalid at iteration %d with `%s`: found %d: %v\n", i, id, dec, errDec)
+		} else {
+			fmt.Printf("`%s`\n", id)
 		}
 
 		if firstIndex, exists := seen[id]; exists {
@@ -50,8 +52,8 @@ func main() {
 		if i%15_000_000 == 0 {
 			ranNum := uint64(rand.Intn(int(combinations)))
 
-			example, _ := generator.Encode(ranNum, 2)
-			reverse, err := generator.Decode(example)
+			example, _ := generator.EncodeScrambled(ranNum, 2)
+			reverse, err := generator.DecodeFromScrambled(example)
 
 			fmt.Printf("checked %d... duplicates: %d, example: %s\n", i, len(duplicates), example)
 			if reverse != ranNum {
