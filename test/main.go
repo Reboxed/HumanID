@@ -35,9 +35,9 @@ func main() {
 		}
 		if dec != uint64(i) {
 			fmt.Printf("Decoding invalid at iteration %d with `%s`: found %d: %v\n", i, id, dec, errDec)
-		} else {
-			fmt.Printf("`%s`\n", id)
-		}
+		} /*  else {
+			fmt.Printf("`%s` with %d decodes %d\n", id, i, dec)
+		} */
 
 		if firstIndex, exists := seen[id]; exists {
 			if _, ok := duplicates[id]; !ok {
