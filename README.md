@@ -7,6 +7,8 @@ HumanID is a Go package for generating human-readable, unique, and reversible ID
 - **Scrambled/Unpredictable**: Optionally scramble IDs using a public-key block cipher (XXTEA) for non-sequential, unguessable IDs.
 - **Open Source**: No secrets, no vendor lock-in, forever free.
 
+**Note:** if the dictionary ever changes the generated conversion maps will also be off as the randomness will shuffle it differently now, i am working on making the indexes baked to a file with only new word being reshuffled.
+
 ## Installation
 
 ```
@@ -45,7 +47,6 @@ func main() {
 ### Scrambled (Unpredictable) IDs
 
 For scrambled IDs, we do not recommend fully relying on decoding, as it can sometimes result in duplicate Human IDs — an issue that does not occur with sequential IDs. In such cases, it's safer to use sequential IDs and generate a random number based on MaxCombinations on your server, check if that key was already saved in the DB, regenerate if so, and then to use that number with the encoder before storing it in a database or similar system, as this approach is more reliable and secure.
-**Additional note:** if the dictionary ever changes the generated conversion maps will also be off as the randomness will shuffle it differently now, i am working on making the indexes baked to a file with only new word being reshuffled.
 
 ```go
 import (
