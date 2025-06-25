@@ -19,6 +19,8 @@ go get github.com/Reboxed/HumanID
 
 ### Basic Encoding/Decoding
 
+Loading the generator is an expensive process, please attempt to reuse the same generator as much as possible especially for web applications.
+
 ```go
 import (
     "fmt"
