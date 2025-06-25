@@ -87,7 +87,7 @@ See the [`examples/`](examples/) folder for runnable code:
 
 ### Load
 
-```
+```go
 Load(seed int64, xxteaKey ...[4]uint32) (*Generator, error)
 ```
 - `seed`: Shuffle the wordlists for uniqueness. Use the same seed for consistent encoding/decoding.
@@ -95,7 +95,7 @@ Load(seed int64, xxteaKey ...[4]uint32) (*Generator, error)
 
 ### Encode / Decode
 
-```
+```go
 Encode(index uint64, adjectivesCount int) (string, error)
 Decode(humanID string) (uint64, error)
 ```
@@ -103,13 +103,23 @@ Decode(humanID string) (uint64, error)
 
 ### EncodeScrambled / DecodeFromScrambled
 
-```
+```go
 EncodeScrambled(index uint64, adjectivesCount int) (string, error)
 DecodeFromScrambled(humanID string) (uint64, error)
 ```
 - Scrambles the mapping using XXTEA for unguessable, non-sequential IDs. Still bijective and reversible.
 
+## Max combinations
+
+```go
+MaxCombinations(adjectivesCount int) (uint64)
+```
+
+Returns the max combinations you can get out of a given adjectives count (cached), can be used for checking if u ran out so you can increment for an additional adjective.
+
 ## Wordlists
+
+**NOT YET IMPLEMENTED**
 
 - Place your `adjectives.txt` and `nouns.txt` in the same directory as your binary or in the package root.
 - Each file should contain one word per line, lowercase, alphanumeric.
