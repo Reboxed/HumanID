@@ -48,7 +48,8 @@ func main() {
 
 ### Scrambled (Unpredictable) IDs
 
-For scrambled IDs, we do not recommend fully relying on decoding, as it can sometimes result in duplicate Human IDs — an issue that does not occur with sequential IDs. In such cases, it's safer to generate a scrambled ID, check it doesn't already exist in your DB and then generate an internal sequential numeric ID alongside.
+For scrambled IDs, we do not recommend fully relying on decoding, as it can sometimes result in duplicate Human IDs — an issue that does not occur with sequential IDs. In such cases, it's safer to generate a scrambled ID, check it doesn't already exist in your DB and then generate an internal sequential numeric ID alongside.  
+If you want to store something fully decodable while being scrambled we recommend using MaxCombinations, generating a random int using MaxCombinations' output, encoding that value, checking if it exists in the DB, and if not using it, as that's garuanteed to be decodable, if you ran out of combinations (somehow) just add an additional adjective and you should be good to go.
 
 ```go
 import (
